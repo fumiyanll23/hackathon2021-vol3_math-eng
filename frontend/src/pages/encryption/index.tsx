@@ -7,7 +7,6 @@ import { PageTitle } from '@/components/atoms/PageTitle'
 //
 const EncryptionPage: NextPage = () => (
   <div>
-    <PageTitle title="暗号化" apply />
     <EncForm />
   </div>
 )

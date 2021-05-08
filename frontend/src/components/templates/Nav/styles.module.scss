@@ -2,7 +2,8 @@
   position: fixed;
   bottom: 0px;
   left: 50%;
-  width: var(--width);
+  width: 100%;
+  max-width: var(--width);
   transform: translateX(-50%);
   background-color: #020e1aaa;
   line-height: 5rem;

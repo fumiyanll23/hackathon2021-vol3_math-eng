@@ -10,11 +10,10 @@ import styles from './styles.module.scss'
 const EncForm: React.VFC = () => {
   return (
     <form className={styles.EncForm}>
-      <label>
-        <span>メッセージ:</span>
-        <TextInput type="text" />
-      </label>
-      <div>
+      <div className={styles.Input}>
+        <TextInput type="text" placeholder="メッセージ" />
+      </div>
+      <div className={styles.Submit}>
         <BtnPrim type="submit">暗号化</BtnPrim>
       </div>
     </form>
