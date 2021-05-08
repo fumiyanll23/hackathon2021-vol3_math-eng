@@ -1,0 +1,6 @@
+.vscode
+.venv
+venv
+__pycache__
+dist
+*:Zone.Identifier
