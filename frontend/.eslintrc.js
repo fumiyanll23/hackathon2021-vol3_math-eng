@@ -31,5 +31,6 @@ module.exports = {
     'import/extensions': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
   },
 }
