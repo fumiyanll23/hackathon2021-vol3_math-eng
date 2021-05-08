@@ -30,5 +30,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 }
