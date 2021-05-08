@@ -13,7 +13,7 @@ export type KeyItemProps = {
 
 // ___________
 //
-export const KeyItem: React.VFC<KeyItemProps> = ({ data }) => {
+export const KeyItem: React.VFC<KeyItemProps> = ({ data, handleDelete }) => {
   return (
     <div key={data.id} className={styles.KeyItem}>
       <div className={styles.Name}>
@@ -22,6 +22,7 @@ export const KeyItem: React.VFC<KeyItemProps> = ({ data }) => {
       </div>
       <div className={styles.Key}>暗号化鍵: {data.enc}</div>
       <div className={styles.Key}>復号鍵: {data.dec}</div>
+      <div onClick={handleDelete}>×</div>
     </div>
   )
 }

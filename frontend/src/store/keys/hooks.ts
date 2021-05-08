@@ -12,7 +12,7 @@ export const useKeys = () => {
   const appendKey = useCallback(
     (k: Omit<Key, 'id'>) => {
       setKeys((ks) => {
-        const mx = Math.max(...ks.map((key) => key.id))
+        const mx = ks.length > 0 ? Math.max(...ks.map((key) => key.id)) : 0
         const newKey: Key = {
           ...k,
           id: mx + 1,
