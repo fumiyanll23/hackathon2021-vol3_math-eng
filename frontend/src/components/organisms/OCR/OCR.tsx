@@ -36,7 +36,7 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
 
   const initStream = useCallback(async () => {
     const stre = await navigator.mediaDevices.getUserMedia({
-      video: { width: scrWidth, height: scrHeight },
+      video: { width: scrWidth, height: scrHeight, facingMode: 'environment' },
       audio: false,
     })
     setStream(stre)
