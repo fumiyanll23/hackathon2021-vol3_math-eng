@@ -12,7 +12,7 @@ type Path = {
 const paths: Path[] = [
   { url: '/encryption', title: '暗号化' },
   { url: '/decryption', title: '復号' },
-  { url: '/keys', title: '鍵' },
+  { url: '/key', title: '鍵' },
 ]
 
 // ___________

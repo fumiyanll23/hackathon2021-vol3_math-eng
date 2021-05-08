@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react'
 
 import { TextInput } from '@/components/atoms/TextInput'
 import { BtnPrim } from '@/components/atoms/Buttons'
-import { useKeys } from '@/store/keys'
+import { useKeys } from '@/store/key'
 import type { Scheme } from '@/types'
 
 import styles from './styles.module.scss'
@@ -21,14 +21,14 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
   const schemeRef = useRef<HTMLSelectElement>(null)
   const encKeyRef = useRef<HTMLInputElement>(null)
   const decKeyRef = useRef<HTMLInputElement>(null)
-  const { appendKey } = useKeys()
+  const { setKey } = useKeys()
 
   const handleSubmit = useCallback(() => {
     const scheme = schemeRef.current?.value || ''
     const encKey = encKeyRef.current?.value || ''
     const decKey = decKeyRef.current?.value || ''
     if (scheme && encKey && decKey) {
-      appendKey({ scheme: scheme as Scheme, enc: encKey, dec: decKey })
+      setKey({ scheme: scheme as Scheme, enc: encKey, dec: decKey })
       if (schemeRef.current) {
         schemeRef.current.value = ''
       }
@@ -40,7 +40,7 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
       }
       handleClose()
     }
-  }, [schemeRef, encKeyRef, decKeyRef, appendKey, handleClose])
+  }, [schemeRef, encKeyRef, decKeyRef, setKey, handleClose])
 
   return (
     <form>
