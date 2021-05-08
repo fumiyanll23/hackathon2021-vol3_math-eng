@@ -1,15 +1,13 @@
 .OCR {
-  width: 450px;
-  height: 300px;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .Rect {
   position: absolute;
-  width: 400px;
-  height: 100px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid var(--secondary);
+  border: 2px solid var(--secondary);
 }

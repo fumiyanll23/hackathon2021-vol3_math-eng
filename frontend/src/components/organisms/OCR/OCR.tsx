@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { createWorker } from 'tesseract.js'
 
 import styles from './styles.module.scss'
@@ -15,51 +15,60 @@ interface OCRProps {
 const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [worker, setWorker] = useState<Tesseract.Worker | null>(null)
+  const [scrWidth, setScrWidth] = useState(450)
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    setScrWidth(Math.min(window.screen.width - 20, 450))
+  }, [setScrWidth])
+
+  const scrHeight = useMemo(() => {
+    return (scrWidth * 2) / 3
+  }, [scrWidth])
 
   const initWorker = useCallback(async () => {
     const wker = createWorker()
     await wker.load()
-    await wker.loadLanguage('jpn')
-    await wker.initialize('jpn')
+    await wker.loadLanguage('eng')
+    await wker.initialize('eng')
     setWorker(wker)
   }, [setWorker])
 
   const initStream = useCallback(async () => {
     const stre = await navigator.mediaDevices.getUserMedia({
-      video: { width: 450, height: 300 },
+      video: { width: scrWidth, height: scrHeight },
       audio: false,
     })
     setStream(stre)
-  }, [setStream])
+  }, [setStream, scrWidth, scrHeight])
 
   const onRecognizeText = useCallback(() => {
     const timerId = setInterval(async () => {
       if (videoRef.current === null || !worker) return
 
       const c = document.createElement('canvas')
-      c.width = 400
-      c.height = 100
+      c.width = scrWidth
+      c.height = scrHeight / 3
       c.getContext('2d')?.drawImage(
         videoRef.current,
-        25,
-        100,
-        400,
-        100,
+        0,
+        scrHeight / 3,
+        scrWidth,
+        scrHeight / 3,
         0,
         0,
-        400,
-        100
+        scrWidth,
+        scrHeight / 3
       )
 
       // canvasから文字を認識！！
       const {
         data: { text },
       } = await worker.recognize(c)
-      setTxt(text.trim().replace(/ /g, ''))
-    }, 2000)
+      setTxt(text.trim().replace(/ /g, '').slice(0, 20))
+    }, 5000)
     return () => clearInterval(timerId)
-  }, [videoRef, setTxt, worker])
+  }, [videoRef, setTxt, worker, scrWidth, scrHeight])
 
   useEffect(() => {
     if (!worker) initWorker()
@@ -78,8 +87,13 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
   return (
     <>
       <div className={styles.OCR}>
-        <video ref={videoRef} autoPlay />
-        {videoRef && <div className={styles.Rect} />}
+        <video className={styles.Video} ref={videoRef} autoPlay />
+        {videoRef && (
+          <div
+            className={styles.Rect}
+            style={{ width: scrWidth, height: scrWidth / 3 }}
+          />
+        )}
       </div>
     </>
   )

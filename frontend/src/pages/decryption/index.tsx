@@ -7,10 +7,7 @@ import { DecForm } from '@/components/templates/DecForm'
 //
 const DecryptionPage: NextPage = () => (
   <div>
-    <PageTitle title="復号" apply />
-    <div>
-      <DecForm />
-    </div>
+    <DecForm />
   </div>
 )
 
