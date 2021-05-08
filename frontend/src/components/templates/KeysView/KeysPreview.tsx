@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useKeys } from '@/store/keys'
+import { useSelectedKey } from '@/store/selectedKey'
 
 import { KeyItem } from './KeyItem'
 import styles from './styles.module.scss'
@@ -9,6 +10,8 @@ import styles from './styles.module.scss'
 //
 const KeysView: React.VFC = () => {
   const { keys, removeKey } = useKeys()
+  const { selectedKey } = useSelectedKey()
+  console.log({ selectedKey })
 
   return (
     <div className={styles.KeysView}>
@@ -17,6 +20,7 @@ const KeysView: React.VFC = () => {
           key={key.id}
           data={key}
           handleDelete={() => removeKey(key.id)}
+          selected={key.id === selectedKey}
         />
       ))}
     </div>

@@ -6,4 +6,8 @@
   .Key {
     font-size: small;
   }
+
+  &[data-selected='true'] {
+    border: 1px solid var(--secondary);
+  }
 }

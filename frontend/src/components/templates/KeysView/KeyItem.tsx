@@ -9,13 +9,18 @@ import styles from './styles.module.scss'
 export type KeyItemProps = {
   data: Key
   handleDelete: () => void
+  selected?: boolean
 }
 
 // ___________
 //
-export const KeyItem: React.VFC<KeyItemProps> = ({ data, handleDelete }) => {
+export const KeyItem: React.VFC<KeyItemProps> = ({
+  data,
+  handleDelete,
+  selected,
+}) => {
   return (
-    <div key={data.id} className={styles.KeyItem}>
+    <div key={data.id} className={styles.KeyItem} data-selected={selected}>
       <div className={styles.Name}>
         {data.scheme}
         {data.id}
