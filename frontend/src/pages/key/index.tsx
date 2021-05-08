@@ -9,11 +9,8 @@ import { KeyAddBtns } from '@/components/templates/KeyAddBtns'
 //
 const KeysPage: NextPage = () => (
   <div>
-    <PageTitle title="鍵" apply />
-    <div>
-      <KeyView />
-      <KeyAddBtns />
-    </div>
+    <KeyView />
+    <KeyAddBtns />
   </div>
 )
 

@@ -43,12 +43,12 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
   }, [schemeRef, encKeyRef, decKeyRef, setKey, handleClose])
 
   return (
-    <form>
-      <h2>鍵の作成</h2>
-      <div>
+    <form className={styles.KeyGenForm}>
+      <h2 className={styles.Title}>鍵の作成</h2>
+      <div className={styles.Row}>
         <label>
-          <span>鍵の種類</span>
-          <select ref={schemeRef}>
+          <span className={styles.Label}>鍵の種類</span>
+          <select className={styles.Select} ref={schemeRef}>
             {schemes.map((scheme) => (
               <option key={scheme} value={scheme}>
                 {scheme}
@@ -57,19 +57,19 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
           </select>
         </label>
       </div>
-      <div>
+      <div className={styles.Row}>
         <label>
-          <span>暗号化鍵</span>
+          <span className={styles.Label}>暗号化鍵</span>
           <TextInput ref={encKeyRef} type="text" />
         </label>
       </div>
-      <div>
+      <div className={styles.Row}>
         <label>
-          <span>復号鍵</span>
+          <span className={styles.Label}>復号鍵</span>
           <TextInput ref={decKeyRef} type="text" />
         </label>
       </div>
-      <div>
+      <div className={styles.Btn}>
         <BtnPrim onClick={handleSubmit}>作成</BtnPrim>
       </div>
     </form>

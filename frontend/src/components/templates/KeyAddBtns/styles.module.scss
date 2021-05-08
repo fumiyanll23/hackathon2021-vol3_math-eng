@@ -1,0 +1,7 @@
+.KeyAddBtns {
+  display: flex;
+  justify-content: center;
+  & > div {
+    margin: 0px 1rem;
+  }
+}
