@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { OCR } from '@/components/organisms/OCR'
 import { TextInput } from '@/components/atoms/TextInput'
 import { BtnPrim } from '@/components/atoms/Buttons'
+import { DecResult } from '@/components/organisms/DecResult'
 
 import styles from './styles.module.scss'
 
@@ -49,7 +50,7 @@ const DecForm: React.VFC = () => {
         </div>
       )
     default:
-      return <div>result</div>
+      return <DecResult msg={txt} />
   }
 }
 
