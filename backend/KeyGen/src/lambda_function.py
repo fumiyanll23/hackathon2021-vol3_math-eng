@@ -10,11 +10,6 @@ def lambda_handler(event: dict, context):
 
     # output
     if event['queryStringParameters']['scheme'] == 'rsa':
-        print('The keys have been generated.')
-        print('The secret-key is')
-        print(sks)
-        print('The public-key is')
-        print(pks)
         return {
             'statusCode': 200,
             'body': json.dumps(
