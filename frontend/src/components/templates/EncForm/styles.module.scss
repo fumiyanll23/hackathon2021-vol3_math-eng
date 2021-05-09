@@ -14,3 +14,13 @@
     text-align: center;
   }
 }
+
+.Loading {
+  text-align: center;
+  color: var(--secondary);
+  margin: 1rem 0px;
+  svg {
+    width: 3rem;
+    margin-bottom: 1rem;
+  }
+}
