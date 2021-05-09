@@ -15,8 +15,8 @@ def lambda_handler(event: dict, context):
             'body': json.dumps(
                 {
                     'scheme': 'rsa',
-                    'encKey': str(sks[0])+str(sks[1]),
-                    'decKey': str(pks[0])+str(pks[1])
+                    'encKey': str(sks[0]) + '/' + str(sks[1]),
+                    'decKey': str(pks[0]) + '/' + str(pks[1])
                 }
             )
         }
