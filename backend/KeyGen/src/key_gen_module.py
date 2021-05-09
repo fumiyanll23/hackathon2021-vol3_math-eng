@@ -5,6 +5,23 @@ def choose_prime_numbers() -> list:
 
     return sample(prime_numbers, 2)
 
+def ring_inv(el: int, p: int) -> int:
+    """
+    find multiple inverse over ring. O(log(el))
+    Args:
+        el (int): an element of ring,
+        p (int): module
+    """
+
+    # find a which meets el*a+p*b = 1
+    m = p
+    a, la = 0, 1
+    while p != 0:
+        q = el // p
+        el, p = p, el%p
+        a, la = la-q*a, a
+    return la % m
+
 def generate_keys(p: int, q: int) -> list:
     '''
     generate public-key (e,n) and secret-key (d,n) from 2 prime numbers p, q
@@ -13,10 +30,6 @@ def generate_keys(p: int, q: int) -> list:
     n = p * q
     l = (p-1) * (q-1)
     e = 65537
-    i = 0
-    for i in range(2, l):
-        if (e*i)%l == 1:
-            d = i
-            break
+    d = ring_inv(e, l)
 
     return [[e,n], [d,n]]
