@@ -21,7 +21,7 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
   const schemeRef = useRef<HTMLSelectElement>(null)
   const encKeyRef = useRef<HTMLInputElement>(null)
   const decKeyRef = useRef<HTMLInputElement>(null)
-  const { setKey } = useKeys()
+  const { setKey, saveKey } = useKeys()
 
   const handleSubmit = useCallback(() => {
     const scheme = schemeRef.current?.value || ''
@@ -29,6 +29,7 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
     const decKey = decKeyRef.current?.value || ''
     if (scheme && encKey && decKey) {
       setKey({ scheme: scheme as Scheme, encKey, decKey })
+      saveKey({ scheme: scheme as Scheme, encKey, decKey })
       if (schemeRef.current) {
         schemeRef.current.value = ''
       }
@@ -40,7 +41,7 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
       }
       handleClose()
     }
-  }, [schemeRef, encKeyRef, decKeyRef, setKey, handleClose])
+  }, [schemeRef, encKeyRef, decKeyRef, setKey, handleClose, saveKey])
 
   return (
     <form className={styles.KeyGenForm}>

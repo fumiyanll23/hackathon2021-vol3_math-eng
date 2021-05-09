@@ -14,7 +14,7 @@ import styles from './styles.module.scss'
 const KeyAddBtns: React.VFC = () => {
   const [display, setDisplay] = useState(false)
   const [pending, setPending] = useState(false)
-  const { setKey } = useKeys()
+  const { setKey, saveKey } = useKeys()
 
   const handleRequest = useCallback(async () => {
     setPending(true)
@@ -26,9 +26,10 @@ const KeyAddBtns: React.VFC = () => {
 
     if (key) {
       setKey(key)
+      saveKey(key)
     }
     setPending(false)
-  }, [setPending, setKey])
+  }, [setPending, setKey, saveKey])
 
   return (
     <>
