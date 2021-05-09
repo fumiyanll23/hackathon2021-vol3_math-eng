@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { BtnPrim } from '@/components/atoms/Buttons'
 import { KeyGenForm } from '@/components/templates/KeyGenForm'
 import { Modal } from '@/components/templates/Modal'
+import { Loading } from '@/components/atoms/Icons'
 
 import styles from './styles.module.scss'
 
@@ -10,12 +11,20 @@ import styles from './styles.module.scss'
 //
 const KeyAddBtns: React.VFC = () => {
   const [display, setDisplay] = useState(false)
+  const [pending, setPending] = useState(false)
+
+  const handleRequest = useCallback(() => {
+    setPending(true)
+  }, [setPending])
 
   return (
     <>
       <div className={styles.KeyAddBtns}>
-        <div>
-          <BtnPrim>リクエスト</BtnPrim>
+        <div className={styles.RequestBtn}>
+          <BtnPrim onClick={handleRequest}>
+            {pending && <Loading />}
+            リクエスト
+          </BtnPrim>
         </div>
         <div>
           <BtnPrim onClick={() => setDisplay(true)}>自作する</BtnPrim>

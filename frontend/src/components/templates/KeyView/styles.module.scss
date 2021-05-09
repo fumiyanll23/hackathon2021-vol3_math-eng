@@ -2,16 +2,27 @@
   margin: 5rem 0px;
 }
 
+@keyframes breathing {
+  from {
+    filter: drop-shadow(0 0 4px var(--secondary));
+  }
+  to {
+    filter: drop-shadow(0 0 10px var(--secondary));
+  }
+}
+
 .KeyIcon {
   text-align: center;
   color: var(--secondary);
   svg {
     width: 40%;
+    filter: drop-shadow(0 0 4px var(--secondary));
+    animation: breathing 1s ease-in-out infinite alternate-reverse;
   }
 }
 
 .Body {
-  max-width: 70%;
+  max-width: 80%;
   margin: 1rem auto;
   font-size: 1.5rem;
   .Scheme {

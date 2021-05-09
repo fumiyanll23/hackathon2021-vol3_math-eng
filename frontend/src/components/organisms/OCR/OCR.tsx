@@ -94,6 +94,7 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
       return () => {
         clear()
         clearDraw()
+        videoDOM.pause()
       }
     }
     return () => {

@@ -13,7 +13,7 @@ const KeyView: React.VFC = () => {
   return (
     <div className={styles.KeyView}>
       <div className={styles.KeyIcon}>
-        <Key />
+        <Key strokeWidth={1} />
       </div>
       <div className={styles.Body}>
         <h2 className={styles.Scheme}>{key.scheme}</h2>
