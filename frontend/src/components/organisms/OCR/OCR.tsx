@@ -72,7 +72,7 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
       const {
         data: { text },
       } = await worker.recognize(canvasRef.current)
-      setTxt(text.trim().replace(/ /g, '').slice(0, 20))
+      setTxt(text.trim().replace(/ /g, '').slice(0, 50))
     }, 5000)
     return () => clearInterval(timerId)
   }, [videoDOM, setTxt, worker])
