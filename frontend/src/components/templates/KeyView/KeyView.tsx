@@ -16,15 +16,15 @@ const KeyView: React.VFC = () => {
         <Key strokeWidth={1} />
       </div>
       <div className={styles.Body}>
-        <h2 className={styles.Scheme}>{key.scheme}</h2>
+        <h2 className={styles.Scheme}>{key.scheme.toUpperCase()}</h2>
         <div>
           <div className={styles.Row}>
             <span className={styles.Label}>暗号化鍵:</span>
-            <span>{key.enc}</span>
+            <span>{key.encKey}</span>
           </div>
           <div className={styles.Row}>
             <span className={styles.Label}>復号鍵:</span>
-            <span>{key.dec}</span>
+            <span>{key.decKey}</span>
           </div>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { BtnPrim } from '@/components/atoms/Buttons'
 import { KeyGenForm } from '@/components/templates/KeyGenForm'
 import { Modal } from '@/components/templates/Modal'
 import { Loading } from '@/components/atoms/Icons'
+import { useKeys } from '@/store/key'
+import type { Key } from '@/types'
 
 import styles from './styles.module.scss'
 
@@ -12,10 +14,21 @@ import styles from './styles.module.scss'
 const KeyAddBtns: React.VFC = () => {
   const [display, setDisplay] = useState(false)
   const [pending, setPending] = useState(false)
+  const { setKey } = useKeys()
 
-  const handleRequest = useCallback(() => {
+  const handleRequest = useCallback(async () => {
     setPending(true)
-  }, [setPending])
+
+    const key: Key = await fetch(
+      'https://o029oneow3.execute-api.ap-northeast-1.amazonaws.com/dev/key-gen?scheme=rsa',
+      { mode: 'cors' }
+    ).then((res) => res.json())
+
+    if (key) {
+      setKey(key)
+    }
+    setPending(false)
+  }, [setPending, setKey])
 
   return (
     <>

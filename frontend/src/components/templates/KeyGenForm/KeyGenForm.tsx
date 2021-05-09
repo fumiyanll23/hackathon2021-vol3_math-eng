@@ -28,7 +28,7 @@ const KeyGenForm: React.VFC<KeyGenFormProps> = ({ handleClose }) => {
     const encKey = encKeyRef.current?.value || ''
     const decKey = decKeyRef.current?.value || ''
     if (scheme && encKey && decKey) {
-      setKey({ scheme: scheme as Scheme, enc: encKey, dec: decKey })
+      setKey({ scheme: scheme as Scheme, encKey, decKey })
       if (schemeRef.current) {
         schemeRef.current.value = ''
       }
