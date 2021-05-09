@@ -15,6 +15,18 @@
   }
 }
 
+.CipherText {
+  text-align: center;
+  font-size: 1.5rem;
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.Btn {
+  margin-top: 1em;
+  text-align: center;
+}
+
 .Loading {
   text-align: center;
   color: var(--secondary);

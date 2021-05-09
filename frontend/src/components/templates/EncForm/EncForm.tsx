@@ -4,6 +4,7 @@ import { BtnPrim } from '@/components/atoms/Buttons'
 import { TextInput } from '@/components/atoms/TextInput'
 import { Modal } from '@/components/templates/Modal'
 import { Loading } from '@/components/atoms/Icons'
+import { useKeys } from '@/store/key'
 
 import styles from './styles.module.scss'
 
@@ -13,12 +14,30 @@ const EncForm: React.VFC = () => {
   const [display, setDisplay] = useState(false)
   const [cipherText, setCipherText] = useState('')
   const textRef = useRef<HTMLInputElement>(null)
+  const { key } = useKeys()
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (textRef.current?.value) {
       setDisplay(true)
+
+      const body = {
+        scheme: key.scheme,
+        encKey: key.encKey,
+        message: textRef.current.value,
+      }
+      const resBody = await fetch(
+        'https://o029oneow3.execute-api.ap-northeast-1.amazonaws.com/dev/encryption',
+        {
+          method: 'POST',
+          mode: 'cors',
+          body: JSON.stringify(body),
+        }
+      ).then((res) => res.json())
+      if (resBody?.cipherText) {
+        setCipherText(resBody.cipherText)
+      }
     }
-  }, [textRef, setDisplay])
+  }, [textRef, setDisplay, key])
 
   return (
     <>
@@ -40,8 +59,8 @@ const EncForm: React.VFC = () => {
       >
         {cipherText && (
           <div>
-            <h2>{cipherText}</h2>
-            <div>
+            <h2 className={styles.CipherText}>{cipherText}</h2>
+            <div className={styles.Btn}>
               <BtnPrim
                 onClick={() => {
                   setDisplay(false)
@@ -53,7 +72,7 @@ const EncForm: React.VFC = () => {
             </div>
           </div>
         )}
-        {cipherText || (
+        {!cipherText && (
           <div className={styles.Loading}>
             <Loading />
             <div>暗号化しています...</div>
