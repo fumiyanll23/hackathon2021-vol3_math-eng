@@ -1,0 +1,9 @@
+.TextInput {
+  width: 100%;
+  border: 1px solid var(--primary);
+  padding: 0.5rem;
+  color: var(--font);
+  &:focus {
+    border: 1px solid var(--secondary);
+  }
+}

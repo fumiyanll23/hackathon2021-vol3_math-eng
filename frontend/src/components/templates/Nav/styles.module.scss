@@ -1,0 +1,17 @@
+.Nav {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  width: 100%;
+  max-width: var(--width);
+  transform: translateX(-50%);
+  background-color: #020e1aaa;
+  line-height: 5rem;
+  display: flex;
+  justify-content: space-around;
+
+  a {
+    text-decoration: none;
+    color: var(--font);
+  }
+}

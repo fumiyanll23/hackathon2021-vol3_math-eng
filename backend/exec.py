@@ -21,8 +21,8 @@ def exec_enc():
     event = {
         'body': json.dumps({
             'scheme': 'rsa',
-            'encKey': [65537, 186841783],
-            'message': [81]
+            'encKey': [65537, 16849981],
+            'message': 'AAA'
         })
     }
     enc.lambda_handler(event, {})
@@ -33,14 +33,14 @@ def exec_dec():
     event = {
         'body': json.dumps({
             'scheme': 'rsa',
-            'decKey': [130005953, 186841783],
-            'cipherText': [150271233]
+            'decKey': [9038465, 16849981],
+            'cipherText': 'Pbzy/Pbzy/Pbzy'
         })
     }
     dec.lambda_handler(event, {})
 
 
 if __name__ == '__main__':
-    exec_keygen()
-    exec_enc()
+    # exec_keygen()
+    # exec_enc()
     exec_dec()

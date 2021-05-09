@@ -1,0 +1,24 @@
+.KeyGenForm {
+  padding: 0.5em;
+  .Title {
+    color: var(--primary);
+    margin-bottom: 1rem;
+  }
+  .Select {
+    width: 100%;
+    padding-right: 1em;
+    cursor: pointer;
+    text-indent: 0.01px;
+    color: var(--font);
+  }
+  .Row {
+    margin: 1rem 0px;
+  }
+  .Label {
+    display: block;
+    color: var(--primary);
+  }
+  .Btn {
+    text-align: center;
+  }
+}
