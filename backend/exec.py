@@ -21,7 +21,7 @@ def exec_enc():
     event = {
         'body': json.dumps({
             'scheme': 'rsa',
-            'encKey': [65537, 13899689],
+            'encKey': '65537/13899689',
             'message': 'こんにちはworld'
         })
     }
@@ -33,7 +33,7 @@ def exec_dec():
     event = {
         'body': json.dumps({
             'scheme': 'rsa',
-            'decKey': [8038133, 13899689],
+            'decKey': '8038133/13899689',
             'cipherText': 'pHgw/HSDg/2F7E/soui/LDk0/PBLq/th07/iYqf/kF2K/v6Cw'
         })
     }
@@ -41,6 +41,6 @@ def exec_dec():
 
 
 if __name__ == '__main__':
-    # exec_keygen()
-    # exec_enc()
+    exec_keygen()
+    exec_enc()
     exec_dec()
