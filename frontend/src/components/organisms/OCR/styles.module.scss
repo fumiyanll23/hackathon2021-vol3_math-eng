@@ -1,11 +1,15 @@
-.Video {
-  height: 400px;
-}
-
 .OCR {
   position: relative;
   display: flex;
   justify-content: center;
+}
+
+.Loading {
+  text-align: center;
+  svg {
+    width: 5rem;
+    color: var(--secondary);
+  }
 }
 
 .Rect {

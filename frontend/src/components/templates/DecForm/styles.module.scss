@@ -5,15 +5,10 @@
   transform: translate(-50%, -50%);
 
   .OCRBody {
-    position: relative;
     .Txt {
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
       color: var(--secondary);
-      transform: translateX(-50%);
       font-weight: bold;
-      overflow: hidden;
+      text-align: center;
     }
   }
   .Next {

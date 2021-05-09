@@ -2,6 +2,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { createWorker } from 'tesseract.js'
 
+import { Loading } from '@/components/atoms/Icons'
+
 import styles from './styles.module.scss'
 
 // ___________
@@ -19,6 +21,7 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [worker, setWorker] = useState<Tesseract.Worker | null>(null)
   const [videoDOM, setVideoDOM] = useState<HTMLVideoElement | null>(null)
+  const [ready, setReady] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const initWorker = useCallback(async () => {
@@ -85,6 +88,7 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
 
     if (worker && stream && videoDOM) {
       videoDOM.srcObject = stream
+      setReady(true)
       const clearDraw = drawCanvas()
       const clear = onRecognizeText()
       return () => {
@@ -103,11 +107,17 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
     onRecognizeText,
     setVideoDOM,
     drawCanvas,
+    setReady,
     videoDOM,
   ])
 
   return (
     <>
+      {ready || (
+        <div className={styles.Loading}>
+          <Loading />
+        </div>
+      )}
       <div className={styles.OCR}>
         <canvas ref={canvasRef} />
       </div>
