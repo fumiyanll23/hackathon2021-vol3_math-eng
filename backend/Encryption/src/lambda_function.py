@@ -18,9 +18,6 @@ def lambda_handler(event: dict, context):
             'statusCode': 400
         }
     else:
-        print('The plain text has been encrypted.')
-        print('The ciphertext is')
-        print(ciphertext)
         return {
             'statusCode': 200,
             'body': json.dumps(
