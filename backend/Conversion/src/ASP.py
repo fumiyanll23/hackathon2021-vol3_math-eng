@@ -27,17 +27,17 @@ def decode62(s):
 
 #----------------- 暗号処理 -------------------#
 #str型の文字をASP(数)に変換する関数
-def strtoASP(s):
+def str_to_ASP(s):
     return ASPe[s]
 
 #平文を入力しASP変換し(文字 → 数字)、list型にしたものを出力
-def listencode62(s):
-    return list(map(strtoASP, s))
+def list_encdoe62(s):
+    return list(map(str_to_ASP, s))
 
 #RSA変換でlistで帰ってくる
 
 #list型10進数暗号文を62進数(文字のASC)表記
-def listencodebase62(l):
+def list_encode_base62(l):
     return "/".join(list(map(encode62, l)))
 
 #-----------------------------------------------#
@@ -45,20 +45,22 @@ def listencodebase62(l):
 
 
 
-#------------------ 複合処理 --------------------#
+#------------------ 復号処理 --------------------#
 #str型のASP（数）をstr型文字に変換
-def ASPtostr(s):
+def ASP_to_str(s):
     return ASPd[str(s)]
 
-#list型暗号文(62進数)を10進数変換し、list型にしたものを出力
-def listdecode62(l):
+
+#str型暗号文(/区切りの62進数)を10進数変換し、list型にしたものを出力
+def list_decode62(s: str) -> list:
+    l = list(map(str, s.split("/")))
     return list(map(decode62, l))
 
-#RSAで複合して複合されたlist型10進数がかえってくる
+#RSAで復号して復号されたlist型10進数がかえってくる
 
-#複合されたlist型文(10進数)をASC(文字)に変換し、結合して返す
-def joinencode(l):
-    l = list(map(ASPtostr, l))
+#復号されたlist型文(10進数)をASC(文字)に変換し、結合して返す
+def join_encode(l):
+    l = list(map(ASP_to_str, l))
     print(l)
     l = "".join(l)
     return l
@@ -66,14 +68,12 @@ def joinencode(l):
 
 l = "HelloWorld"
 print(l)
-l = listencode62(l)
+l = list_encdoe62(l)
 print(l)
-l = listencodebase62([141189, 161617, 564, 54])
+l = list_encode_base62([141189, 161617, 564, 54])
 print(l)
-l = list(map(str, l.split("/")))
-print(l)
-l = listdecode62(l)
+l = list_decode62(l)
 l = [32, 15, 60, 10]
 print(l)
-l = joinencode(l)
+l = join_encode(l)
 print(l)
