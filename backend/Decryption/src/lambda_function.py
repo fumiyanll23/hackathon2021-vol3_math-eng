@@ -4,7 +4,7 @@ from . import decryption_module
 def lambda_handler(event: dict, context):
     # input
     body = json.loads(event['body'])
-    sks = body['decKey']
+    sks = list(map(int, body['decKey'].split('/')))
     ciphertext = body['cipherText']
 
     # compute
