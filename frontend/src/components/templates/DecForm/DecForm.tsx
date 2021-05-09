@@ -15,7 +15,6 @@ type Phase = 'RECOGNIZE' | 'CONFIRM' | 'RESULT'
 const DecForm: React.VFC = () => {
   const [txt, setTxt] = useState('')
   const [phase, setPhase] = useState<Phase>('RECOGNIZE')
-  console.log({ phase })
 
   switch (phase) {
     case 'RECOGNIZE':
