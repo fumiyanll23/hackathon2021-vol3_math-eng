@@ -8,7 +8,7 @@ def lambda_handler(event: dict, context):
     plaintext = body['message']
 
     # compute
-    plain_integers = encryption_module.list_encode62(plaintext)
+    plain_integers = encryption_module.list_encode134(plaintext)
     cipher_integers = encryption_module.encrypt(plain_integers, pks)
     ciphertext = encryption_module.list_encode_base62(cipher_integers)
 
