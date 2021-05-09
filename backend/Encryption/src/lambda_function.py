@@ -4,7 +4,7 @@ from . import encryption_module
 def lambda_handler(event: dict, context):
     # input
     body = json.loads(event['body'])
-    pks = body['encKey']
+    pks = list(map(int, body['encKey'].split('/')))
     plaintext = body['message']
 
     # compute
