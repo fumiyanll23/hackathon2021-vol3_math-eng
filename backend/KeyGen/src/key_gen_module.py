@@ -1,9 +1,12 @@
 from random import sample
 
+
 def choose_prime_numbers() -> list:
-    prime_numbers = [1087, 8111, 4421, 2437, 9199, 4937, 1511, 9733, 6997, 3413]
+    prime_numbers = [1087, 8111, 4421, 2437,
+                     9199, 4937, 1511, 9733, 6997, 3413]
 
     return sample(prime_numbers, 2)
+
 
 def ring_inv(el: int, p: int) -> int:
     """
@@ -18,9 +21,10 @@ def ring_inv(el: int, p: int) -> int:
     a, la = 0, 1
     while p != 0:
         q = el // p
-        el, p = p, el%p
+        el, p = p, el % p
         a, la = la-q*a, a
     return la % m
+
 
 def generate_keys(p: int, q: int) -> list:
     '''
@@ -32,4 +36,4 @@ def generate_keys(p: int, q: int) -> list:
     e = 65537
     d = ring_inv(e, l)
 
-    return [[e,n], [d,n]]
+    return [[e, n], [d, n]]

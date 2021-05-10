@@ -1,0 +1,17 @@
+.DecResult {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .Loading {
+    color: var(--secondary);
+    svg {
+      width: 5rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .Plaintext {
+    font-size: 2em;
+  }
+}

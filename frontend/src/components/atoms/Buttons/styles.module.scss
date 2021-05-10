@@ -6,4 +6,11 @@
 .Prim {
   background-color: var(--primary);
   color: var(--font);
+  border-radius: 25px;
+  border: 1px solid var(--secondary);
+  box-shadow: 0px 0px 5px 0px var(--secondary);
+  &:active {
+    filter: brightness(0.8);
+    box-shadow: none;
+  }
 }

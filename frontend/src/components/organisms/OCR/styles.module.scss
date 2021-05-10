@@ -4,6 +4,14 @@
   justify-content: center;
 }
 
+.Loading {
+  text-align: center;
+  svg {
+    width: 5rem;
+    color: var(--secondary);
+  }
+}
+
 .Rect {
   position: absolute;
   left: 50%;

@@ -1,0 +1,22 @@
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes breathing {
+  from {
+    filter: drop-shadow(0 0 4px var(--secondary));
+  }
+  to {
+    filter: drop-shadow(0 0 10px var(--secondary));
+  }
+}
+
+.Loading {
+  animation: loading 1s ease-in-out infinite,
+    breathing 1.5s ease-in-out infinite alternate;
+}

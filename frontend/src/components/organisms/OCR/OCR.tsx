@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { createWorker } from 'tesseract.js'
+
+import { Loading } from '@/components/atoms/Icons'
 
 import styles from './styles.module.scss'
 
@@ -10,21 +12,17 @@ interface OCRProps {
   setTxt: (txt: string) => void
 }
 
+const width = 450
+const height = (width * 2) / 3
+
 // ___________
 //
 const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [worker, setWorker] = useState<Tesseract.Worker | null>(null)
-  const [scrWidth, setScrWidth] = useState(450)
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    setScrWidth(Math.min(window.screen.width - 20, 450))
-  }, [setScrWidth])
-
-  const scrHeight = useMemo(() => {
-    return (scrWidth * 2) / 3
-  }, [scrWidth])
+  const [videoDOM, setVideoDOM] = useState<HTMLVideoElement | null>(null)
+  const [ready, setReady] = useState(false)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const initWorker = useCallback(async () => {
     const wker = createWorker()
@@ -36,64 +34,93 @@ const OCR: React.VFC<OCRProps> = ({ setTxt }) => {
 
   const initStream = useCallback(async () => {
     const stre = await navigator.mediaDevices.getUserMedia({
-      video: { width: scrWidth, height: scrHeight },
+      video: { facingMode: 'environment' },
       audio: false,
     })
     setStream(stre)
-  }, [setStream, scrWidth, scrHeight])
+  }, [setStream])
+
+  const drawCanvas = useCallback(() => {
+    const timerId = setInterval(async () => {
+      if (!videoDOM || !canvasRef.current) return
+
+      // const c = document.createElement('canvas')
+      const c = canvasRef.current
+      const cWidth = Math.min(window.innerWidth - 20, width)
+      c.width = cWidth
+      c.height = cWidth * (2 / 9)
+      c.getContext('2d')?.drawImage(
+        videoDOM,
+        0,
+        height / 3,
+        width,
+        height / 3,
+        0,
+        0,
+        width,
+        height / 3
+      )
+    }, 1000)
+    return () => clearInterval(timerId)
+  }, [videoDOM])
 
   const onRecognizeText = useCallback(() => {
     const timerId = setInterval(async () => {
-      if (videoRef.current === null || !worker) return
-
-      const c = document.createElement('canvas')
-      c.width = scrWidth
-      c.height = scrHeight / 3
-      c.getContext('2d')?.drawImage(
-        videoRef.current,
-        0,
-        scrHeight / 3,
-        scrWidth,
-        scrHeight / 3,
-        0,
-        0,
-        scrWidth,
-        scrHeight / 3
-      )
+      if (!videoDOM || !canvasRef.current || !worker) return
 
       // canvasから文字を認識！！
       const {
         data: { text },
-      } = await worker.recognize(c)
-      setTxt(text.trim().replace(/ /g, '').slice(0, 20))
+      } = await worker.recognize(canvasRef.current)
+      setTxt(text.trim().replace(/ /g, '').slice(0, 50))
     }, 5000)
     return () => clearInterval(timerId)
-  }, [videoRef, setTxt, worker, scrWidth, scrHeight])
+  }, [videoDOM, setTxt, worker])
 
   useEffect(() => {
     if (!worker) initWorker()
     if (!stream) initStream()
+    if (!videoDOM) {
+      const v = document.createElement('video')
+      v.autoplay = true
+      setVideoDOM(v)
+    }
 
-    if (worker && stream && videoRef.current !== null) {
-      videoRef.current.srcObject = stream
+    if (worker && stream && videoDOM) {
+      videoDOM.srcObject = stream
+      setReady(true)
+      const clearDraw = drawCanvas()
       const clear = onRecognizeText()
-      return clear
+      return () => {
+        clear()
+        clearDraw()
+        videoDOM.pause()
+      }
     }
     return () => {
       '...'
     }
-  }, [worker, stream, initStream, initWorker, onRecognizeText, videoRef])
+  }, [
+    worker,
+    stream,
+    initStream,
+    initWorker,
+    onRecognizeText,
+    setVideoDOM,
+    drawCanvas,
+    setReady,
+    videoDOM,
+  ])
 
   return (
     <>
+      {ready || (
+        <div className={styles.Loading}>
+          <Loading />
+        </div>
+      )}
       <div className={styles.OCR}>
-        <video className={styles.Video} ref={videoRef} autoPlay />
-        {videoRef && (
-          <div
-            className={styles.Rect}
-            style={{ width: scrWidth, height: scrWidth / 3 }}
-          />
-        )}
+        <canvas ref={canvasRef} />
       </div>
     </>
   )
