@@ -20,7 +20,7 @@ const KeyAddBtns: React.VFC = () => {
     setPending(true)
 
     const key: Key = await fetch(
-      'https://o029oneow3.execute-api.ap-northeast-1.amazonaws.com/dev/key-gen?scheme=rsa',
+      'https://zrfleon9t2.execute-api.ap-northeast-1.amazonaws.com/prod/key-gen?scheme=rsa',
       { mode: 'cors' }
     ).then((res) => res.json())
 

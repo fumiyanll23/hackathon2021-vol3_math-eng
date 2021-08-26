@@ -29,7 +29,7 @@ const DecResult: React.VFC<DecResultProps> = ({ msg }) => {
       }
 
       fetch(
-        'https://o029oneow3.execute-api.ap-northeast-1.amazonaws.com/dev/decryption',
+        'https://zrfleon9t2.execute-api.ap-northeast-1.amazonaws.com/prod/decryption',
         { method: 'POST', mode: 'cors', body: JSON.stringify(body) }
       )
         .then((res) => res.json())

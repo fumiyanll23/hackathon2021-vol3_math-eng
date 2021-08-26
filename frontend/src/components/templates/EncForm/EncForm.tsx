@@ -26,7 +26,7 @@ const EncForm: React.VFC = () => {
         message: textRef.current.value,
       }
       const resBody = await fetch(
-        'https://o029oneow3.execute-api.ap-northeast-1.amazonaws.com/dev/encryption',
+        'https://zrfleon9t2.execute-api.ap-northeast-1.amazonaws.com/prod/encryption',
         {
           method: 'POST',
           mode: 'cors',
